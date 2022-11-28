@@ -1,0 +1,95 @@
+' Gambas class file
+
+'#####################################################
+
+'ESTADO - ATRIBUTOS
+
+'#####################################################
+'Esto son descripciones del objeto, no importa el orden.
+Private colorBonus As Integer 'un color.
+Private ladob As Short 'lado en pixeles.
+Private posXb As Short 'posicion en un determinado pixel: x,y.
+Private posYb As Short
+
+
+'#####################################################
+
+'COMPORTAMIENTO - MÉTODOS
+
+'#####################################################
+
+'Constructor o inicializador, me da valores. Es lo primero que se ejecuta cuando desde fuera se usa un objeto.
+Public Sub _new(nuevoColor As Integer, nuevoLado As Short, nuevaX As Short, nuevaY As Short)
+
+  'Asignamos valores
+  colorBonus = nuevoColor
+  ladob = nuevoLado
+  posXb = nuevaX
+  posYb = nuevaY
+
+  
+End 
+
+'####################################################
+
+'Public Function isDrew(collide As Object) As Boolean
+  
+ ' If Cambiar(collide) = True Then 
+   ' Return True
+   ' Else 
+     ' Return False
+ ' Endif
+  
+'End
+
+
+
+
+
+'Pintarse
+Public Sub Pintarse(tablero As DrawingArea)
+  
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(colorBonus)
+  Paint.Rectangle(posXb, posYb, ladob, ladob)
+  Paint.Fill
+  Paint.End
+End 
+
+Public Sub Borrarse(tablero As DrawingArea)
+  
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(Color.Black)
+  Paint.Rectangle(posXb, posYb, ladob, ladob)
+  Paint.Fill
+  Paint.End
+  
+End 
+
+
+
+
+
+
+
+
+
+
+'Getters
+Public Function getColorb() As Integer
+  
+  Return colorBonus
+  
+End
+
+Public Function getPosXb() As Short
+  
+  Return posXb
+  
+End
+
+Public Function getPosYb() As Short
+  
+  Return posYb
+  
+End

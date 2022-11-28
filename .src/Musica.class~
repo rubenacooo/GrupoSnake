@@ -1,0 +1,11 @@
+' Gambas class file
+
+
+Private Slider1 As Slider
+Private Slider2 As Slider
+
+
+
+Public Sub Form_Open()
+
+End

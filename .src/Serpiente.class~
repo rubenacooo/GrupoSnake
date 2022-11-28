@@ -1,0 +1,189 @@
+' Gambas class file
+
+'#####################################################
+
+'ESTADO - ATRIBUTOS
+
+'#####################################################
+'Es un conjunto de cuadrados en forma de lista, ordenados. []--> lista
+Private miCuerpo As Cuadrado[] '-->lista
+
+'Tengo que saber en cada momento si me muevo a la I,D,ARR,AB
+Private direccion As String
+
+
+'#####################################################
+
+'COMPORTAMIENTO - MÉTODOS
+
+'#####################################################
+
+'Constructor o inicializador, me da valores. Es lo primero que se ejecuta cuando desde fuera se usa un objeto.
+Public Sub _new(nuevaX As Short, nuevaY As Short, colorSerpiente As Integer, nuevaDir As String)
+
+      Dim cabeza As Cuadrado
+      
+      cabeza = New Cuadrado(colorSerpiente, 20, nuevaX, nuevaY)
+      '¿Cuál será el "ancho" de mi serpiente?
+      
+      'Nos han definido la serpiente como de 20px
+
+      'Preparo la lista de cuadrados
+      miCuerpo = New Cuadrado[]
+      
+      'añadir la cabeza al cuerpo
+      miCuerpo.Add(cabeza)
+      direccion = nuevaDir
+      
+  
+End 
+'####################################################
+
+'Moverse
+Public Sub moverse()
+      'coger y poner en la cabeza otro elemento, lo vamos a mover, y quitaremos el último.
+      'crezco
+      Me.crecer()
+      'quito el último
+      miCuerpo.Pop() 'pop mira el último del array
+
+End
+'####################################################
+
+'Pintarse
+Public Sub PintarseS(tablero As DrawingArea)
+
+  Dim iContador As Integer
+  'tengo que conseguir cada uno de los cuadrados, uno a uno, se pinte
+  
+  For iContador = 0 To miCuerpo.Count - 1 '-1 porque en miCuerpo empieza desde el 0
+    miCuerpo[iContador].PintarseS(tablero)
+    
+  Next
+
+
+End
+
+Public Sub crecer()
+      'coger un nuevo cuadrado. 
+       Dim nuevaCabeza As Cuadrado
+       Dim cabezaAntigua As Cuadrado
+      
+       cabezaAntigua = miCuerpo.First
+      
+      'Crearlo y ponerlo donde está la cabeza.
+       nuevaCabeza = New Cuadrado(cabezaAntigua.getColor(), 20, cabezaAntigua.getPosX(), cabezaAntigua.getPosY())
+       
+      'Añadirlo al cuerpo.
+      miCuerpo.Add(nuevaCabeza, 0) 'En los arrays, el primero es el 0
+      
+      'Moverlo un paso adelante.
+      nuevaCabeza.Moverse(direccion)
+      
+End 
+
+Public Sub decrecer()
+      Dim decreciendo As Boolean
+      decreciendo = False
+      If miCuerpo.Length >= 2
+      miCuerpo.Delete(0, 1)
+      Endif 
+      
+      decreciendo = True
+End 
+
+
+
+Public Sub cambiaDir(letra As String)
+
+
+  'Si letra es W,A,S,D y ninguna mas, entonces, ignora la la direccion.
+  If letra = "W" Or letra = "A" Or letra = "S" Or letra = "D" Then 
+  
+        direccion = letra
+
+Endif 
+
+End
+
+
+
+Public Function estasMuerta(tablero As DrawingArea) As Boolean
+ Dim bResultado As Boolean
+ Dim cabezaSerpiente As Cuadrado
+ Dim iContador As Integer
+ 
+ cabezaSerpiente = miCuerpo[0]
+ 
+ bResultado = False
+
+  If (miCuerpo[0].getPosX() > tablero.Width - 20 Or miCuerpo[0].getPosX() < 0 Or miCuerpo[0].getPosY() > tablero.Height - 20 Or miCuerpo[0].getPosY() < 0) Then 
+    bResultado = True
+
+  Endif
+  
+For iContador = 1 To miCuerpo.Count - 1 
+  If (cabezaSerpiente.colisiona(miCuerpo[iContador])) Then
+    bResultado = True
+  Endif
+Next
+
+Return bResultado
+
+
+  
+  'bResultado = False
+'If cabeza.Serpiente = hasChochado Then 
+  'bResultado = True
+'Endif
+  
+   'Si mi cabeza tiene un X menor que 0, estoy muerta.
+   'Si mi cabeza tiene un X mayor que le ancho - lado, estoy muerta
+    'Si mi cabeza tiene un Y menor que 0, estoy muerta.
+   'Si mi cabeza tiene un Y mayor que le ancho - lado, estoy muerta
+    'Ademas
+    'Si para cada cuadrado de mi cuerpo de posicion quinta(4) o mayor
+    'la x de ese cuadrado y la y de ese cuadrado son exactamente = que
+    'los de mi cabeza, estoy muerta.
+    
+    'si estoy muerta es porque bResultado = True
+   'Return bResultado
+    
+
+End 
+
+Public Sub estaColisionando(cuadrado As Cuadrado) As Boolean
+ 
+ 
+  If miCuerpo.First.colisiona(cuadrado) Then
+     Return True
+    Endif
+
+
+    Return False
+End
+
+
+
+'getters
+
+Public Function getPosCabeza() As Object
+  
+  Return miCuerpo.First
+  
+End
+
+Public Function getPosCabezaX() As Short
+  
+  Return miCuerpo.First.getPosX()
+  
+End
+
+Public Function getPosCabezaY() As Short
+  
+  Return miCuerpo.First.getPosY()
+  
+End
+
+
+

@@ -1,0 +1,172 @@
+' Gambas class file
+
+Private Veneno As Cuadrado
+Private Apple As Cuadrado
+Private viborita As Serpiente
+Private iPasos As Integer
+Private sonido1 As Sound
+Private sonido2 As Sound
+Private canal1 As Channel
+Private canal2 As Channel
+
+
+
+Public Sub BStart_Click()
+  
+  
+   canal2.Play(sonido2)
+   viborita = New Serpiente(20, 20, 1, "D")
+   Apple = New Cuadrado(Color.Red, 20, Rand(10, 490 / 20) * 20 - 20, Rand(10, 390 / 20) * 20 - 20)
+   Veneno = New Cuadrado(Color.Red, 20, 240, 200)
+  
+   
+   Crono.Start()
+   LPuntos.Text = 0
+   
+   
+
+End 
+
+Public Sub BPause_Click()
+
+If Crono.Enabled = True Then 
+    Crono.Stop()
+    canal2.Pause()
+    Else If Crono.Enabled = False And viborita = Null Then
+       Message.Info("Dale a Start para comenzar")
+
+    Else 
+      Crono.Start()
+      canal2.Play()
+Endif
+
+
+End
+
+
+
+
+
+Public Sub Crono_Timer()
+  iPasos = iPasos + 1
+  
+If iPasos = 3 Then 
+    
+    iPasos = 1
+    
+  Else
+  viborita.moverse()  
+  
+Endif
+
+
+If viborita.getPosCabezaX() = Apple.getPosX() And viborita.getPosCabezaY() = Apple.getPosY() Then 
+  If viborita.estaColisionando(Apple) Then 
+  canal1.Play(sonido1)
+  Apple = New Cuadrado(Color.Red, 20, Rand(10, 500 / 20) * 20 - 20, Rand(10, 400 / 20) * 20 - 20)
+  Veneno = New Cuadrado(Color.Red, 20, Rand(10, 490 / 20) * 20 - 20, Rand(10, 380 / 20) * 20 - 20)
+  viborita.crecer()
+  LPuntos.Text += 10
+  Endif 
+Endif
+
+If viborita.getPosCabezaX() = Veneno.getPosX() And viborita.getPosCabezaY() = Veneno.getPosY() Then 
+  If viborita.estaColisionando(Veneno) Then 
+  canal1.Play(sonido1)
+  Apple = New Cuadrado(Color.Red, 20, Rand(10, 500 / 20) * 20 - 20, Rand(10, 400 / 20) * 20 - 20)
+  Veneno = New Cuadrado(Color.Red, 20, Rand(10, 490 / 20) * 20 - 20, Rand(10, 380 / 20) * 20 - 20)
+  LPuntos.Text -= 10
+  viborita.decrecer()
+'Por ahora, se buggea cuando un cuadrado se teletransporta justo enfrete suya tras comer una manzana o veneno, ya que debe lanzar dos veces
+'rápidamente el comando de canal1.play(sonido1)
+  Endif 
+Endif
+
+
+If viborita.estasMuerta(DrawingArea1) = True Then
+  canal2.Stop()
+  Crono.Stop()
+  Message.Info("Se acabó")
+  viborita = Null
+  Apple = Null
+  Veneno = Null
+  LPuntos.Text = 0
+  BStart.Enabled = True
+  
+Endif
+
+DrawingArea1.Refresh()
+
+End
+
+
+
+Public Sub DrawingArea1_Draw()
+
+
+  If (viborita <> Null) Then
+      viborita.PintarseS(DrawingArea1)
+  Endif 
+    If (Apple <> Null) Then
+      Apple.PintarseM(DrawingArea1)
+  Endif 
+ 
+    If (Veneno <> Null) Then
+      Veneno.PintarseV(DrawingArea1)
+  Endif 
+  
+
+End 
+  
+  Public Sub DrawingArea1_KeyPress()
+  
+  If (Key.Text = "W" Or Key.Text = "S" Or Key.Text = "A" Or Key.Text = "D") Then 
+    viborita.cambiaDir(Key.Text)
+  Endif
+
+End 
+
+Public Sub Form_KeyPress()
+  
+  If (Key.Text = "W" Or Key.Text = "S" Or Key.Text = "A" Or Key.Text = "D") Then 
+    viborita.cambiaDir(Key.Text)
+    
+  Endif
+
+
+'Tambien se podría poner DrawingArea1_KeyPress()
+End 
+
+
+
+Public Sub Form_Open()
+
+Channels.Count = 2 
+canal1 = Channels[0]
+canal2 = Channels[1]
+
+sonido1 = Sound.Load("/home/juanjemc/Documentos/Programacion/Proyectos_Gambas/Snake2223/manzana.wav") 
+sonido2 = Sound.Load("/home/juanjemc/Documentos/Programacion/Proyectos_Gambas/Snake2223/DP.wav") 
+
+Slider1.MaxValue = 100
+Slider1.MinValue = 0
+Slider1.Value = 100
+Slider2.MaxValue = 100
+Slider2.MinValue = 0
+Slider2.Value = 100
+
+End
+
+
+Public Sub Slider1_Change()
+Dim volumen1 As Float
+volumen1 = Abs(Slider1.value)
+canal1.Volume = volumen1
+End
+
+Public Sub Slider2_Change()
+Dim volumen2 As Float
+volumen2 = Abs(Slider2.Value)
+canal2.Volume = volumen2
+End
+

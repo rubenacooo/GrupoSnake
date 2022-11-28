@@ -1,0 +1,59 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,91,97)
+  Background = Color.Black
+  { LScore Label
+    MoveScaled(8,10,9,6)
+    Font = Font["Uroob,+7"]
+    Foreground = Color.SoftGreen
+    Text = ("Score:")
+  }
+  { DrawingArea1 DrawingArea
+    MoveScaled(11,17,71.4286,57.1429)
+    Background = Color.Black
+    Border = Border.Plain
+  }
+  { LPuntos Label
+    MoveScaled(17,10,19,6)
+    Font = Font["Uroob,+7"]
+    Foreground = Color.SoftGreen
+    Text = ("0")
+  }
+  { BPause Button
+    MoveScaled(11,88,12,3)
+    Text = ("Pause")
+  }
+  { LTitle Label
+    MoveScaled(74,10,9,6)
+    Font = Font["Uroob,+7"]
+    Foreground = Color.SoftGreen
+    Text = ("SNAKE")
+  }
+  { BStart Button
+    MoveScaled(11,80,13,3)
+    Text = ("Start")
+  }
+  { Crono #Timer
+    #MoveScaled(11,67)
+    Delay = 60
+  }
+  { LTitle2 Label
+    MoveScaled(76,86,9,6)
+    Font = Font["Uroob,+7"]
+    Foreground = Color.SoftGreen
+    Text = ("MUSIC")
+  }
+  { LTitle3 Label
+    MoveScaled(78,76,6,6)
+    Font = Font["Uroob,+7"]
+    Foreground = Color.SoftGreen
+    Text = ("SFX")
+  }
+  { Slider2 Slider
+    MoveScaled(61,89,24,4)
+  }
+  { Slider1 Slider
+    MoveScaled(61,79,24,4)
+  }
+}

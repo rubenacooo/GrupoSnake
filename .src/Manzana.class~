@@ -1,0 +1,84 @@
+' Gambas class file
+
+'#####################################################
+
+'ESTADO - ATRIBUTOS
+
+'#####################################################
+'Esto son descripciones del objeto, no importa el orden.
+Private colorManzana As String 'un color.
+Private ladob As Short 'lado en pixeles.
+Private posXb As Short 'posicion en un determinado pixel: x,y.
+Private posYb As Short
+
+
+
+'#####################################################
+
+'COMPORTAMIENTO - MÉTODOS
+
+'#####################################################
+
+'Constructor o inicializador, me da valores. Es lo primero que se ejecuta cuando desde fuera se usa un objeto.
+Public Sub _new(nuevoColor As String, nuevoLado As Short, nuevaX As Short, nuevaY As Short)
+
+  'Asignamos valores
+  colorManzana = nuevoColor
+  ladob = nuevoLado
+  posXb = nuevaX
+  posYb = nuevaY
+
+  
+End 
+
+'####################################################
+
+
+'Pintarse
+Public Sub Pintarse(tablero As DrawingArea)
+
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(colorManzana)
+  Paint.Rectangle(posXb, posYb, ladob, ladob, 50)
+  Paint.Fill
+  Paint.End
+End 
+
+Public Sub estaColisionando(cuadrado As Serpiente) As Boolean
+ 
+ 
+  If miCuerpo.First.colisiona(cuadrado) Then
+     Return True
+    Endif
+
+
+    Return False
+End
+
+
+
+
+
+Public Function getPosXb() As Short
+  
+  Return posXb
+  
+End
+
+Public Function getPosYb() As Short
+  
+  Return posYb
+  
+End
+
+
+
+
+
+
+
+
+
+'Getters
+
+

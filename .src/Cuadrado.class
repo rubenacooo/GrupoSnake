@@ -1,0 +1,142 @@
+' Gambas class file
+
+'#####################################################
+
+'ESTADO - ATRIBUTOS
+
+'#####################################################
+'Esto son descripciones del objeto, no importa el orden.
+Private colorCuadrado As Integer 'un color.
+Private lado As Short 'lado en pixeles.
+Private posX As Short 'posicion en un determinado pixel: x,y.
+Private posY As Short
+
+'#####################################################
+
+'COMPORTAMIENTO - MÉTODOS
+
+'#####################################################
+
+'Constructor o inicializador, me da valores. Es lo primero que se ejecuta cuando desde fuera se usa un objeto.
+Public Sub _new(nuevoColor As Integer, nuevoLado As Short, nuevaX As Short, nuevaY As Short)
+
+  'Asignamos valores
+  colorCuadrado = nuevoColor
+  lado = nuevoLado
+  posX = nuevaX
+  posY = nuevaY
+
+  
+End 
+'####################################################
+
+'Moverse
+Public Sub Moverse(letra As String)
+
+  'If condición Then 
+  'Sentencias 
+  'Endif
+  
+  If letra = "S" Then 
+    'quermos ir arriba
+    posY = lado + posY
+    
+  Endif
+  
+  If letra = "W" Then 
+    'quermos ir abajo
+    posY = posY - lado 'No es lo mismo al contrario, al ser resta
+  Endif
+  
+  If letra = "A" Then 
+    'quermos ir izquierda
+    posX = posX - lado
+  Endif
+  
+  If letra = "D" Then 
+    'quermos ir derecha
+    posX = lado + posX
+  Endif
+
+End
+'####################################################
+
+'Pintarse
+Public Sub PintarseS(tablero As DrawingArea)
+  
+  Dim colorLoteria As Integer
+  
+  colorLoteria = Color.RGB(Rand(0, 0), Rand(150, 250), Rand(0, 0) + Color.RGB(Rand(0, 0), Rand(0, 0), Rand(150, 200))) 
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(colorLoteria)
+  Paint.Rectangle(posX, posY, lado, lado, 2)
+  Paint.Fill
+  Paint.End
+
+  
+End 
+
+Public Sub PintarseM(tablero As DrawingArea)
+  
+  Dim colorLoteria As Integer
+  
+  colorLoteria = Color.RGB(Rand(250, 250), Rand(0, 0), Rand(0, 0))
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(colorLoteria)
+  Paint.Rectangle(posX, posY, lado, lado, 50)
+  Paint.Fill
+  Paint.End
+
+  
+End 
+
+Public Sub PintarseV(tablero As DrawingArea)
+  
+  Dim colorLoteria As Integer 
+  
+  colorLoteria = Color.RGB(Rand(100, 200), Rand(0, 0), Rand(0, 250))
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(colorLoteria)
+  Paint.Rectangle(posX, posY, lado, lado, 5)
+  Paint.Fill
+  Paint.End
+
+  
+End 
+
+
+
+Public Function colisiona(otroCuadrado As Cuadrado) As Boolean
+ Dim cResultado As Boolean
+  cResultado = False
+    If posX = otroCuadrado.getPosX() And posY = otroCuadrado.getPosY() Then 
+    cResultado = True
+    Endif 
+
+    Return cResultado
+End
+
+'Getters
+Public Function getColor() As Integer
+  
+  Return colorCuadrado
+  
+End
+
+Public Function getPosX() As Short
+  
+  Return posX
+  
+End
+
+Public Function getPosY() As Short
+  
+  Return posY
+  
+End
+
+
+
+
+
+
