@@ -10,7 +10,7 @@ Private miCuerpo As Cuadrado[] '-->lista
 
 'Tengo que saber en cada momento si me muevo a la I,D,ARR,AB
 Private direccion As String
-
+Private MyRandColor As Integer
 
 '#####################################################
 
@@ -34,6 +34,8 @@ Public Sub _new(nuevaX As Short, nuevaY As Short, colorSerpiente As Integer, nue
       'añadir la cabeza al cuerpo
       miCuerpo.Add(cabeza)
       direccion = nuevaDir
+      MyRandColor = Rand(1, 3)
+      
       
   
 End 
@@ -43,11 +45,30 @@ End
 Public Sub moverse()
       'coger y poner en la cabeza otro elemento, lo vamos a mover, y quitaremos el último.
       'crezco
+      Dim i As Integer
+      
       Me.crecer()
       'quito el último
       miCuerpo.Pop() 'pop mira el último del array
-
+      
+       
+  For i = 0 To miCuerpo.Count - 1
+      
+      If (i <> 0) Then 
+        
+        miCuerpo[i].setRandColor(MyRandColor)
+      
+      Else 
+        
+          miCuerpo[i].setHeadColor()
+          
+      Endif 
+      
+  Next
+  
 End
+
+
 '####################################################
 
 'Pintarse
@@ -58,10 +79,9 @@ Public Sub PintarseS(tablero As DrawingArea)
   
   For iContador = 0 To miCuerpo.Count - 1 '-1 porque en miCuerpo empieza desde el 0
     miCuerpo[iContador].PintarseS(tablero)
-    
   Next
-
-
+  
+  
 End
 
 Public Sub crecer()

@@ -36,7 +36,7 @@
   }
   { Crono #Timer
     #MoveScaled(11,67)
-    Delay = 60
+    Delay = 100
   }
   { LTitle2 Label
     MoveScaled(76,86,9,6)

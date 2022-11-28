@@ -15,14 +15,14 @@ Public Sub BStart_Click()
   
   
    canal2.Play(sonido2)
-   viborita = New Serpiente(20, 20, 1, "D")
+   viborita = New Serpiente(20, 20, 250, "D")
    Apple = New Cuadrado(Color.Red, 20, Rand(10, 490 / 20) * 20 - 20, Rand(10, 390 / 20) * 20 - 20)
-   Veneno = New Cuadrado(Color.Red, 20, 240, 200)
+   Veneno = New Cuadrado(Color.Cyan, 20, 240, 200)
   
    
    Crono.Start()
    LPuntos.Text = 0
-   
+   BStart.X = 1000
    
 
 End 
@@ -37,7 +37,7 @@ If Crono.Enabled = True Then
 
     Else 
       Crono.Start()
-  
+      canal2.Play()
 Endif
 
 
@@ -91,7 +91,7 @@ If viborita.estasMuerta(DrawingArea1) = True Then
   Apple = Null
   Veneno = Null
   LPuntos.Text = 0
-  BStart.Enabled = True
+  BStart.X = 77
   
 Endif
 
@@ -145,8 +145,8 @@ Channels.Count = 2
 canal1 = Channels[0]
 canal2 = Channels[1]
 
-sonido1 = Sound.Load("/home/juanjemc/Documentos/Programacion/Proyectos_Gambas/Snake2223/manzana.wav") 
-sonido2 = Sound.Load("/home/juanjemc/Documentos/Programacion/Proyectos_Gambas/Snake2223/DP.wav") 
+sonido1 = Sound.Load("/home/juanjemc/Documentos/SNAKEGRUPO/GrupoSnake/Comer.wav") 
+sonido2 = Sound.Load("/home/juanjemc/Documentos/SNAKEGRUPO/GrupoSnake/DP.wav") 
 
 Slider1.MaxValue = 100
 Slider1.MinValue = 0

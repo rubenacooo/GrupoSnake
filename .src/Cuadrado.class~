@@ -40,7 +40,7 @@ Public Sub Moverse(letra As String)
   If letra = "S" Then 
     'quermos ir arriba
     posY = lado + posY
-    Else letra! = "W"
+    
   Endif
   
   If letra = "W" Then 
@@ -62,19 +62,35 @@ End
 '####################################################
 
 'Pintarse
+'Public Sub PintarseS(tablero As DrawingArea)
+  
+  'Dim colorLoteria As Integer
+  
+  'colorLoteria = Color.RGB(Rand(0, 250), Rand(0, 250), Rand(0, 250))
+  
+  'Paint.Begin(tablero)
+  'Paint.Brush = Paint.Color(colorLoteria)
+  'Paint.Rectangle(posX, posY, lado, lado, 2)
+  'Paint.Fill
+  'Paint.End
+
+  
+'End 
+
 Public Sub PintarseS(tablero As DrawingArea)
-  
-  Dim colorLoteria As Integer
-  
-  colorLoteria = Color.RGB(Rand(0, 0), Rand(150, 250), Rand(0, 0) + Color.RGB(Rand(0, 0), Rand(0, 0), Rand(150, 200))) 
+
+
+
   Paint.Begin(tablero)
-  Paint.Brush = Paint.Color(colorLoteria)
+  Paint.Brush = Paint.Color(colorCuadrado)
   Paint.Rectangle(posX, posY, lado, lado, 2)
   Paint.Fill
   Paint.End
 
   
 End 
+
+
 
 Public Sub PintarseM(tablero As DrawingArea)
   
@@ -134,6 +150,20 @@ Public Function getPosY() As Short
   Return posY
   
 End
+
+Public Sub setRandColor(MyRandColor As Integer) 
+
+  If MyRandColor = 1 Then 
+    colorCuadrado = Color.Red
+  Endif
+  If MyRandColor = 2 Then 
+    colorCuadrado = Color.Green
+  Endif
+  If MyRandColor = 3 Then 
+    colorCuadrado = Color.Blue
+  Endif
+End
+
 
 
 

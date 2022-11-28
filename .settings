@@ -5,12 +5,12 @@ Count=0
 Count=0
 
 [OpenFile]
-Active=2
+Active=4
 File[1]=".src/FMain.form"
 Count=4
-File[2]=".src/FMain.class:30.17"
-File[3]=".src/Serpiente.class:16.25"
-File[4]=".src/Cuadrado.class:0.131"
+File[2]=".src/FMain.class:0.144"
+File[3]=".src/Serpiente.class:25.80"
+File[4]=".src/Cuadrado.class:0.83"
 
 [Watches]
 Count=0
